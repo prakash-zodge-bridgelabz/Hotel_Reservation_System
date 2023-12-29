@@ -16,10 +16,11 @@ import java.util.Date;
 // RegularCustomerWeekendRate $ |   90          |       60          |       150
 // RewardCustomerWeekendRate  $ |   80          |       50          |       40
 //
-// Use case 2 :
-// Ability to find the cheapest Hotel for a given Date Range
-// - I/P – 10Sep2020, 11Sep2020
-// - O/P – Lakewood, Total Rates: $220
+// Use case 3 :
+// Ability to add weekday and weekend rates for each Hotel
+// - For Lakewood Weekday & Weekend Rates per day is $110 & $90
+// - For Bridgewood $150 and $50 -
+// - For Ridgewood $220 and $150
 class Hotel{
     Hotel(){
         //do nothing
@@ -90,15 +91,16 @@ class Hotel{
         return price;
     }
     int price,lakewoodPrice,bridgewoodPrice,ridgewoodPrice;
+    Hotel Lakewood,Bridgewood,Ridgewood;
     String findCheapestHotel(String fromDate, String toDate) throws ParseException {
-        firstDay = getDay(fromDate);        //friday
-        lastDay = getDay(toDate);           //saturday
+        firstDay = getDay(fromDate);
+        lastDay = getDay(toDate);
         //Defining three hotels
-        Hotel Lakewood = new Hotel("Lakewood",110,
+        Lakewood = new Hotel("Lakewood",110,
                 80,90,80,3);
-        Hotel Bridgewood = new Hotel("Bridgewood",160,
+        Bridgewood = new Hotel("Bridgewood",160,
                 110,60,50,4);
-        Hotel Ridgewood = new Hotel("Ridgewood",220,
+        Ridgewood = new Hotel("Ridgewood",220,
                 100,150,40,5);
         lakewoodPrice = Lakewood.getPrice(firstDay,lastDay);
         bridgewoodPrice = Bridgewood.getPrice(firstDay,lastDay);
@@ -136,6 +138,37 @@ class Hotel{
             else{
                 return Ridgewood.hotelName+", Total Rates: $"+ridgewoodPrice;
             }
+        }
+    }
+    String addWeekendAndWeekdayRatesForEachHotel(String hotelName,int newWeekdayRate,int newWeekendRate){
+        //Defining three hotels
+        Lakewood = new Hotel("Lakewood",110,
+                80,90,80,3);
+        Bridgewood = new Hotel("Bridgewood",160,
+                110,60,50,4);
+        Ridgewood = new Hotel("Ridgewood",220,
+                100,150,40,5);
+        if(hotelName == Lakewood.hotelName){
+            Lakewood.regularCustomerWeekdayRate = newWeekdayRate;
+            Lakewood.regularCustomerWeekendRate = newWeekendRate;
+            return ("Hotel : "+Lakewood.hotelName+
+                    ", Updated Weekday Rate : $"+Lakewood.regularCustomerWeekdayRate+
+                    ", Updated Weekend Rate : $"+Lakewood.regularCustomerWeekendRate);
+        } else if(hotelName == Bridgewood.hotelName){
+            Bridgewood.regularCustomerWeekdayRate = newWeekdayRate;
+            Bridgewood.regularCustomerWeekendRate = newWeekendRate;
+            return ("Hotel : "+Bridgewood.hotelName+
+                    ", Updated Weekday Rate : $"+Bridgewood.regularCustomerWeekdayRate+
+                    ", Updated Weekend Rate : $"+Bridgewood.regularCustomerWeekendRate);
+        }else if(hotelName == Ridgewood.hotelName){
+            Ridgewood.regularCustomerWeekdayRate = newWeekdayRate;
+            Ridgewood.regularCustomerWeekendRate = newWeekendRate;
+            return ("Hotel : "+Ridgewood.hotelName+
+                    ", Updated Weekday Rate : $"+Ridgewood.regularCustomerWeekdayRate+
+                    ", Updated Weekend Rate : $"+Ridgewood.regularCustomerWeekendRate);
+        }
+        else{
+            return "Invalid hotel name...";
         }
     }
 }
